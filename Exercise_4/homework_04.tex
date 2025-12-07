@@ -1,0 +1,257 @@
+% Hier können andere Dateien eingebunden werden oder Inhalte direkt rein geschrieben werden.
+% Kompiliere dieses Modul um eine PDF zu erzeugen.
+
+% Dokumentenart. Ersetze 12pt, falls die Schriftgröße anzupassen ist.
+\documentclass[12pt]{scrartcl}
+% \include: bindet nach einem Seitenumbruch eine Datei ein.
+% \input: bindet nach KEINEN Seitenumbruch eine Datei ein.
+\input{../Styles/Packages.tex} % beinhalte Pakete.
+\input{../Styles/FormatAndHeader.tex} % beinhaltet den Header und die Formatierung.
+
+% Beginn des eigentlichen Dokuments
+\begin{document}
+\newsheet{1}
+
+\exercise{Predicate Logic}{50}
+
+\subexercise{First Order Logic}{14}
+Translate the following sentences into first order logic:
+\begin{enumerate}[label=\alph*.]
+    \item There is an ice cream flavor loved by everyone.
+    \begin{framed}
+        Let \( icecream \) be a constant.\\
+        \( \exists\;icecream\;\forall\; x: Loves(x,icecream) \)
+    \end{framed}
+    \item It is not true that everyone loves some ice cream flavor.
+    \begin{framed}
+        Let \( icecream \) be a constant.\\
+        \( \exists\;x\;\forall\;icescrem: \lnot(Loves(x,icecream)) \)
+    \end{framed}
+    \item Anyone who does not shave himself must be shaved by the barber.
+    \begin{framed}
+        Let \( barber \) be a constant.\\
+        \( \forall x: \lnot(Shaves(x,x)) \Rightarrow  Shaves(barber,x) \)
+    \end{framed}
+    \item Whomever the barber shaves, must not shave himself.
+    \begin{framed}
+        Let \( barber \) be a constant.\\
+        \( \forall x: Shaves(barber,x) \Rightarrow  \lnot (Shaves(x,x)) \)
+    \end{framed}
+    \item Rudolph is a reindeer and Rudolph has a red nose.
+    \begin{framed}
+        Let \( Rudolph \), \( barber \), \( red nose \) be constants.\\
+        \( Is(Rudolph,barber) \land Is(Rudolph,red nose) \)
+    \end{framed}
+    \item Anyone with a red nose is weird or is a clown.
+    \begin{framed}
+        Let \( weird \), \( clown\) be constants.\\
+        \( \forall x:  Is(x,weird) \lor Is(x,clown) \)
+    \end{framed}
+    \item No reindeer is a clown.
+    \begin{framed}
+        Let \( reindeer \), \( clown \) be constants.\\
+        \( \forall\;reindeer:  \lnot(Is(reindeer,clown)) \)
+    \end{framed}
+\end{enumerate}
+Note: You are not required to specify which object a variable refers to, or what a function returns, if it is obvious from the context. For instance, it’s obvious from the context that \( x \) is a person and \( Likes(x,y) \) is true if \( x \) likes some \( y \). However, if you think that the context is insufficient, you might start providing definitions.
+
+\subexercise{Clausal Forms}{6}
+Reduce the following sentences to clausal form:
+\begin{enumerate}[label=\alph*.]
+    \item \(  \forall x \forall y(R(x,y) \rightarrow (R(x,y) \land Q(y))) \)
+    \begin{framed}
+        \[
+            \begin{aligned}
+                & \forall x \forall y(R(x,y) \rightarrow (R(x,y) \land Q(y))) \\
+                & \equiv \forall x \forall y(\lnot R(x,y) \lor (R(x,y) \land Q(y))) \\
+                & \equiv \forall x \forall y((\lnot R(x,y) \lor R(x,y)) \land (\lnot R(x,y) \lor Q(y))) \\
+                & \equiv \forall x \forall y(1 \land (\lnot R(x,y) \lor Q(y))) \\
+                & \equiv \forall x \forall y((\lnot R(x,y) \lor Q(y)))
+            \end{aligned}
+        \]
+    \end{framed}
+    \item \( \forall x \exists y \forall z (P(x,y,z) \rightarrow \exists uR(x,u,z)) \)
+    \begin{framed}
+        \[
+            \begin{aligned}
+                & \forall x \exists y \forall z (P(x,y,z) \rightarrow \exists uR(x,u,z)) \\
+                & \equiv \forall x \exists y \forall z (\lnot P(x,y,z) \lor \exists uR(x,u,z))
+            \end{aligned}
+        \]
+    \end{framed}
+    \item \( \forall x(\lnot \exists y P(x,y) \land \lnot (Q(x) \land \lnot R(x))) \)
+    \begin{framed}
+        \[
+            \begin{aligned}
+                & \forall x(\lnot \exists y P(x,y) \land \lnot (Q(x) \land \lnot R(x))) \\
+                & \equiv \forall x(\lnot \exists y P(x,y) \land  (\lnot Q(x) \lor R(x)))
+            \end{aligned}
+        \]
+    \end{framed}
+\end{enumerate}
+
+\subexercise{Knowledge Extraction via Resolution}{30}
+Let \( flee \), \( stay \), \( now \), \( lion \) be constants. You are given the following Knowledge Base:\\
+\textbf{S1} \( \forall t \forall x(Observe(t, x) \land Danger(x) \rightarrow Suggestion(t, flee)) \)\\
+\textbf{S2} \( \forall t(\lnot \exists x(Observe(t, x) \land Danger(x)) \rightarrow Suggestion(t, stay)) \) \\
+\textbf{S3} \( Danger(lion) \)\\
+\textbf{S4} \( Observe(now, lion) \)\\
+Use Resolution to show that the KB entails \( \exists xSuggestion(now, x) \) and extract an answer.
+\begin{framed}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=\linewidth]{Graphs/Foundations_AI 2.pdf}
+        \caption{PL-Resolution}
+        \label{fig:PLResolution}
+    \end{figure}
+\end{framed}
+\newpage
+
+\exercise{Predicate Logic}{50}
+\subexercise{Probability}{30}
+Examiners running the game show \textit{“Ring the golden bell”} have been taking bribes from some participants. A given participant is either allowed to stay or kicked off in each episode.\\
+If the participant has been bribing the examiners she will be allowed to stay with probability 4/5. If the participant has not been bribing the examiners, she will be allowed to stay with probability 1/3.\\
+Suppose that 1/4 of the participants have been bribing the examiners. The same participants bribe the examiners in both rounds, i.e., if a participant bribes them in the first round, she bribes them in the second round too (and vice versa).
+\begin{enumerate}[label=\alph*.]
+    \item If you pick a random participant who was allowed to stay during the first episode, what is the probability that she was bribing the examiners?
+    \begin{framed}
+        \( B = \text{is bribing} \), \( \lnot B = \text{is not bribing} \), \( S = \text{is staying}\), \( \lnot S = \text{is not staying} \).\\[2.5mm]
+            \begin{minipage}[T]{0.3\textwidth}
+                 We are looking for and want to compute \( P(B|S)\).\\[2.5mm]
+                Given:
+                \begin{itemize}
+                    \item \( P(B) = \frac{1}{4}\) \\
+                    \item \( P(S\mid B) = \frac{4}{5}\) \\
+                    \item \( P(S\mid\lnot B) = \frac{1}{3}\)
+                \end{itemize}
+                With the given information we can create the tree in \autoref{fig:tree}.
+            \end{minipage}
+            \hfill
+            \begin{minipage}{0.65\textwidth}
+                \begin{figure}[H]
+                    \centering
+                    \includegraphics[width=0.95\textwidth]{./Graphs/prob_tree.pdf}
+                    \caption{Probability tree}
+                    \label{fig:tree}
+                \end{figure}
+            \end{minipage}\\[5mm]
+            Before computing \( P(B|S)\) we need to compute \( P(S) \) first:
+            \[
+                P(S) = P(\lnot B) \cdot P(S\mid\lnot B) + P(B) \cdot P(S\mid B) 
+                = \frac{1}{4} \cdot \frac{4}{5} + \frac{3}{4} \cdot \frac{1}{3} 
+                = \frac{1}{5} + \frac{1}{4} 
+                = \frac{4 + 5}{5 \cdot 4}
+                = \frac{9}{20}
+            \]
+            we computing \( P(B\mid S)\) using Bayes’ theorem:
+            \[ P(B\mid S) = \frac{P(S|B) \cdot P(B)}{P(S)} 
+            = \frac{\frac{4}{5} \cdot \frac{1}{4}}{\frac{9}{20}}
+            = \frac{4}{5} \cdot \frac{1}{4} \cdot \frac{20}{9}
+            = \frac{4}{9}\]
+    \end{framed}
+    \newpage
+    \item If you pick a random participant, what is the probability that she is allowed to stay during both of the first two episodes?
+    \begin{framed}
+        \[
+        \begin{aligned}
+            P(\text{stay 2 times}) & = P(\lnot B)\cdot P(S\mid\lnot B)^2 
+            + P(B)\cdot P(S\mid B)^2\\
+            & =\frac{3}{4} \cdot \left(\frac{1}{3} \right)^2 + \frac{1}{4} \cdot \left(\frac{4}{5}\right)^2 \\
+            & =\frac{3}{4} \cdot \frac{1}{3} \cdot \frac{1}{3} + \frac{1}{4} \cdot \frac{4}{5} \cdot \frac{4}{5} \\
+            & =\frac{1}{4\cdot 3} + \frac{4}{5^2} \\
+            & = \frac{1}{12} + \frac{4}{25} \\
+            & = \frac{25 + 4\cdot 12}{12 \cdot 25} \\
+            & = \frac{73}{300} \\
+        \end{aligned}
+        \]
+    \end{framed}
+    \item If you pick random participant who was allowed to stay during the first episode, what is the probability that she gets kicked off during the second episode?
+    \begin{framed}
+        \[
+        \begin{aligned}
+            P(\text{kicked off second time}) & = P(\lnot B)\cdot P(S\mid\lnot B)\cdot P(\lnot S\mid\lnot B) \\
+            & + P(B)\cdot P(S\mid B)\cdot P(\lnot S\mid B)\\
+            & =\frac{3}{4} \cdot \frac{1}{3}\cdot  \frac{2}{3} + \frac{1}{4} \cdot \frac{4}{5} \cdot \frac{1}{5} \\
+            & =\frac{1}{2 \cdot 3}  + \frac{1}{5^2} \\
+            & =\frac{1}{6}  + \frac{1}{25} \\
+            & = \frac{25 + 6}{6 \cdot 25} \\
+            & = \frac{31}{150} \\
+        \end{aligned}
+        \]
+    \end{framed}
+\end{enumerate}
+
+\newpage
+\subexercise{Naïve Bayes’ Classifier}{20}
+Given this data table about buying a car. Predict the class of the following new example using Naïve Bayes’ Classification:\\
+age \( \leq \) 30, income = high, Married = yes, credit-rating = fair
+\begin{table}[H]
+    \centering
+    \begin{tabular}{l|l|l|l|l|l} \hline 
+    \textbf{RID} & \textbf{age} & \textbf{income} & \textbf{married} & \textbf{credit\_rating} & \textbf{class: buy\_car} \\ \hline
+    1  & $\le 30$          & high   & no  & fair      & no  \\
+    2  & $\le 30$          & high   & no  & excellent & no  \\
+    3  & 31, 32,\dots,40   & high   & no  & fair      & yes \\
+    4  & $>40$             & medium & no  & fair      & yes \\
+    5  & $>40$             & low    & yes & fair      & yes \\
+    6  & $>40$             & low    & yes & excellent & no  \\
+    7  & 31, 32,\dots,40   & low    & yes & excellent & yes \\
+    8  & $\le 30$          & medium & no  & fair      & no  \\
+    9  & $\le 30$          & low    & yes & fair      & yes \\
+    10 & $>40$             & medium & yes & fair      & yes \\
+    11 & $\le 30$          & medium & yes & excellent & yes \\
+    12 & 31, 32,\dots,40   & medium & yes & excellent & yes \\
+    13 & 31, 32,\dots,40   & high   & yes & fair      & yes \\
+    14 & $>40$             & medium & no  & excellent & no  \\ \hline
+    \end{tabular}
+    % \caption{Caption}
+    \label{tab:placeholder}
+\end{table}
+\begin{framed}
+    \noindent We want to predict the class of the given example:
+    \[ e = (\underbrace{age \le 30}_{e_0},\; \underbrace{income = high}_{e_1},\; \underbrace{married = yes}_{e_2},\; \underbrace{credit = fair}_{e_3}) \]
+    by classifying it into one of the two categories:
+    \[ buy\_car \in \{yes, no\}. \]
+    \begin{enumerate}[label=\arabic*.]
+        \item Prior over categories ($P(category)$): 
+        \[ P(buy\_car = yes) = \frac{9}{14}, \qquad P(buy\_car = no) = \frac{5}{14}. \]
+        \item Conditional probabilities ($P(e_i \mid  category)$):\\
+        \begin{itemize}
+            \item \( buy\_car = yes \):
+            {\small \[ P(\underbrace{age \le 30}_{e_0} \mid buy\_car =yes) = \frac{2}{9},\qquad P(\underbrace{income = high}_{e_1} \mid buy\_car = yes) = \frac{2}{9}, \] 
+            \[ P(\underbrace{married = yes}_{e_2} \mid buy\_car = yes) = \frac{7}{9},\qquad P(\underbrace{credit = fair}_{e_3} \mid buy\_car = yes) = \frac{6}{9}. \]}
+            \item \( buy\_car = no \):
+            {\small \[ P(\underbrace{age \le 30}_{e_0} \mid buy\_car = no) = \frac{3}{5},\qquad P(\underbrace{income = high}_{e_1} \mid buy\_car = no) = \frac{2}{5}, \]
+            \[ P(\underbrace{married = yes}_{e_2} \mid buy\_car = no) = \frac{1}{5},\qquad P(\underbrace{credit = fair}_{e_3} \mid buy\_car =no) = \frac{2}{5}. \]}
+        \end{itemize}
+    \end{enumerate}
+    Using the Na\"ive Bayes formula
+    \[ P(Category \mid e)= \alpha \, P(Category)  \prod_j P(e_j \mid Category) \]
+    we can compute \( P(buy\_car= yes \mid e) \):
+    \[ 
+    P(e \mid buy\_car=yes) = \prod_j P(e_j \mid buy\_car=yes)
+    = \frac{2}{9}\cdot \frac{2}{9}\cdot \frac{7}{9}\cdot \frac{6}{9}
+    = \frac{56}{2187} \approx 0.0256,
+    \]
+    \[
+    P(buy\_car= yes \mid e) =P(buy\_car= yes) \cdot P(e \mid buy\_car= yes) = \frac{9}{14}\cdot\frac{56}{2187} \approx 0.0165.
+    \]
+    and \( P(buy\_car=no \mid e) \):
+    \[
+    P(e \mid buy\_car = no) = \prod_j P(e_j \mid buy\_car=no)
+    = \frac{3}{5}\cdot \frac{2}{5}\cdot \frac{1}{5}\cdot \frac{2}{5}
+    = \frac{12}{625} \approx 0.0192,
+    \]
+    \[
+    P(buy\_car= no \mid e) =P(buy\_car= no) \cdot P(e \mid buy\_car= no) = 
+    \frac{5}{14}\cdot\frac{12}{625}
+    \approx 0.00686.
+    \]
+    Now we can predict the class of the given example:
+    \[ P(buy\_car = yes \mid e) = 0.0165  \;>\; 0.00686 = P(buy\_car = no \mid e). \]
+    \[ \boxed{\text{Predicted Category: } buy\_car=yes} \]
+    The Na\"ive Bayes classifier predicts that the customer will buy a car.
+\end{framed}
+
+% Ende des Dokuments
+\end{document}
